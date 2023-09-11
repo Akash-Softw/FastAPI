@@ -12,9 +12,18 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
-conn = MongoClient("mongodb+srv://akashmukherjee2908:7cc675bc89c1d9998046ff2615371132@akashcluster.io8ogmc.mongodb.net/notes")
+conn = MongoClient("mongodb+srv://akashmukherjee2908:A%401kashm@akashcluster.io8ogmc.mongodb.net")
 @app.get("/", response_class=HTMLResponse)
 async def read_item(request: Request):
+
    docs = conn.notes.notes.find({})
-   print(docs)
-   return templates.TemplateResponse("index.html", {"request": request})
+   newDocs = []
+   for doc in docs:
+      newDocs.append( {
+        "id" : doc["_id"],
+        "note" : doc["note"]
+})
+
+
+
+   return templates.TemplateResponse("index.html", {"request": request, newDocs:newDocs})
