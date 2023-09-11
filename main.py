@@ -26,4 +26,4 @@ async def read_item(request: Request):
 
 
 
-   return templates.TemplateResponse("index.html", {"request": request, newDocs:newDocs})
+   return templates.TemplateResponse("index.html", {"request": request, "newDocs":newDocs})
